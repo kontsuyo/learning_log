@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
 
@@ -27,7 +28,7 @@ def topics(request):
 @login_required
 def topic(request, topic_id):
     """1つのトピックとそれについてのすべての記事を表示する"""
-    topic = Topic.objects.get(id=topic_id)
+    topic = get_object_or_404(Topic, id=topic_id)
     # トピックが現在のユーザーが所持するものであることを確認する
     check_topic_owner(topic, request)
 
